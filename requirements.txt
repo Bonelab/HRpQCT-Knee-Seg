@@ -1,0 +1,20 @@
+# setup
+setuptools
+pyyaml
+
+# style
+flake8
+black
+
+# imaging and deep learning
+vtk
+numpy
+scikit-image
+torch
+pytorch-lightning==1.9.4
+monai
+einops
+
+# docs
+Sphinx
+sphinx-rtd-theme
