@@ -17,9 +17,9 @@ TODO:
    cross-sectional or longitudinal processing of HR-pQCT knee images
 3. Improve the documentation in this repo to properly explain how to use the
    utilities and how everything works
-4. Long term goal - perhaps add command line utilities that link up to the
+4. Add tests and github actions CI/CD
+5. Long term goal - perhaps add command line utilities that link up to the
    preprocessing and training scripts so that someone could retrain the models
    if they had more data and wanted to - or so you could use this to
-   train models
-   on entirely different datasets.. the approach here isn't necessarily specific
-   to just knees
+   train models on entirely different datasets.. the approach here isn't necessarily specific to just knees
+6. Might be nice to have sphinx auto-documentation, but that's post-thesis stuff
