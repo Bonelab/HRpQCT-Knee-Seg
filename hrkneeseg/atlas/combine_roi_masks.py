@@ -6,7 +6,7 @@ from typing import Tuple, List
 
 from bonelab.util.echo_arguments import echo_arguments
 from bonelab.util.time_stamp import message
-from bonelab.cli.registration import read_image
+from bonelab.util.registration_util import read_image
 
 
 def create_parser() -> ArgumentParser:
