@@ -13,7 +13,7 @@ from blpytorchlightning.dataset_components.datasets.PickledDataset import Pickle
 from blpytorchlightning.loss_functions.DiceLoss import DiceLoss
 from monai.networks.nets.segresnet import SegResNetVAE
 from glob import glob
-from parser import create_parser
+from hrkneeseg.training.knee_cv.parser import create_parser
 
 
 def train_segresnetvae_cv(args):

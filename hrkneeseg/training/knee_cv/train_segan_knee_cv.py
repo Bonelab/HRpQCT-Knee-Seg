@@ -13,7 +13,7 @@ from blpytorchlightning.tasks.SeGANTask import SeGANTask
 from blpytorchlightning.dataset_components.datasets.PickledDataset import PickledDataset
 from blpytorchlightning.models.SeGAN import get_segmentor_and_discriminators
 from glob import glob
-from parser import create_parser
+from hrkneeseg.training.knee_cv.parser import create_parser
 
 
 def train_segan_cv(args: Namespace) -> None:

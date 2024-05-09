@@ -12,7 +12,7 @@ from blpytorchlightning.tasks.SegResNetVAETask import SegResNetVAETask
 from blpytorchlightning.dataset_components.datasets.PickledDataset import PickledDataset
 from blpytorchlightning.loss_functions.DiceLoss import DiceLoss
 from monai.networks.nets.segresnet import SegResNetVAE
-from parser import create_parser
+from hrkneeseg.training.final.parser import create_parser
 
 
 def train_segresnetvae_cv(args):

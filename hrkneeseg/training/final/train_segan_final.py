@@ -10,7 +10,7 @@ from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 from blpytorchlightning.tasks.SeGANTask import SeGANTask
 from blpytorchlightning.dataset_components.datasets.PickledDataset import PickledDataset
 from blpytorchlightning.models.SeGAN import get_segmentor_and_discriminators
-from parser import create_parser
+from hrkneeseg.training.final.parser import create_parser
 
 
 def train_segan_final(args):

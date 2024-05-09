@@ -18,7 +18,7 @@ from monai.networks.nets.attentionunet import AttentionUnet
 from monai.networks.nets.unetr import UNETR
 from monai.networks.nets.basic_unetplusplus import BasicUNetPlusPlus
 from glob import glob
-from parser import create_parser
+from hrkneeseg.training.knee_cv.parser import create_parser
 
 
 # we need a factory function for creating a loss function that can be used for the unet++
