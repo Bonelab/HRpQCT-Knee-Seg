@@ -72,6 +72,7 @@ Here is a list of all of the command-line apps that get installed when you insta
 | hrkTrainSegResNetVAE_TransferCV | Train a SegResNetVAE using cross-validation, starting from a SeGAN that has been trained on another dataset.                                                             |
 | hrkTrainUNet_TransferCV         | Train a UNet (or variant) using cross-validation, starting from a SeGAN that has been trained on another dataset.                                                        |
 | hrkVisualize2DPanning           | Reads in an image and masks and generates a 2D video or GIF that pans through the image, for qualitative data checking, motion scoring, etc.                             |
+| hrkGenerateROIs                 | Generate peri-articular ROIs from a bone compartment segmentation and a atlas-based compartmental segmentation.                                                          |
 
 ---
 
@@ -81,7 +82,7 @@ Regardless of the study design, the first steps are to move your data from the `
 
 ### Cross-sectional Data
 
-Your data must be organized in the following way:
+Your data directory must be organized in the following way:
 
 ```bash
 <STUDY NAME>
@@ -93,9 +94,26 @@ Your data must be organized in the following way:
 └── visualizations
 ```
 
+Steps:
+
+1. Put the AIMs in the `aims` directory.
+2. Convert the AIMs to NIfTI format using the `hrkAIMs2NIIs` command, and put the outputs in the `niftis` directory.
+3. Perform inference on the images using the `hrkInferenceEnsemble` command, and put the outputs in the `model_masks` directory.
+4. Post-process the segmentations using the `hrkPostProcessSegmentation` command, and put the outputs in the `model_masks` directory.
+5. Convert the post-processed masks to AIMs using the `hrkMasks2AIMs` command, and put the outputs in the `roi_masks` directory.
+6. If the image is from a LEFT knee, then mirror the NII using the `blImageMirror` command, and put the output in the `niftis` directory.
+7. Register the (if LEFT, mirrored) image to the atlas using the `blRegistrationDemons` command, and put the output in the `atlas_registrations` directory.
+8. Transform the atlas masks to the image using the `blRegistrationApplyTransform` command and put the output in the `atlas_registrations` directory.
+9. If the image is from a LEFT knee, then mirror the transformed atlas masks using the `blImageMirror` command, and put the output in the `atlas_registrations` directory.
+10. Generate the ROI masks using the `hrkGenerateROIs` command, and put the output in the `roi_masks` directory.
+11. Convert the peri-articular ROI masks to AIMs using the `hrkMasks2AIMs` command, and put the outputs in the `roi_masks` directory.
+12. Visualize the segmentations using the `hrkVisualize2DPanning` command, and put the outputs in the `visualizations` directory.
+13. Visually check the visualization outputs to make sure the ROI masks are OK - you may need to go back and recrop your AIMs, or you may need to do some corrections to the bone compartment segmentations and rerun parts of the workflow. You can also use these visualizations for doing motion scoring.
+14. Transfer all `*.AIM` files from `roi_masks` back to the VMS system, and do your analysis.
+
 ### Longotudinal Data
 
-Your data must be organized in the following way:
+Your data directory must be organized in the following way:
 
 ```bash
 <STUDY NAME>
@@ -107,6 +125,10 @@ Your data must be organized in the following way:
 ├── roi_masks
 └── visualizations
 ```
+
+Steps:
+
+1. Put the AIMs in the `aims` directory.
 
 ---
 

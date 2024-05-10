@@ -134,6 +134,12 @@ class TestCommandLineInterfeceSetup(unittest.TestCase):
         '''Can run `hrkVisualize2DPanning`'''
         self.runner('hrkVisualize2DPanning')
 
+    def test_hrkGenerateROIs(self):
+        '''Can run `hrkGenerateROIs`'''
+        self.runner('hrkGenerateROIs')
+
+
+
 
 if __name__ == '__main__':
     unittest.main()
