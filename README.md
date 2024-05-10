@@ -73,6 +73,8 @@ This is a list of all of the command-line apps that get installed when you insta
 | hrkTrainUNet_TransferCV         | Train a UNet (or variant) using cross-validation, starting from a SeGAN that has been trained on another dataset.                                                        |
 | hrkVisualize2DPanning           | Reads in an image and masks and generates a 2D video or GIF that pans through the image, for qualitative data checking, motion scoring, etc.                             |
 | hrkGenerateROIs                 | Generate peri-articular ROIs from a bone compartment segmentation and a atlas-based compartmental segmentation.                                                          |
+| hrkCrosssectional               | Create bash/slurm files to perform all steps for a cross-sectional study design.                                                                                         |
+| hrkLongitudinal                 | Create bash/slurm files to perform all steps for a longitudinal study design.                                                                                            |
 
 ---
 
