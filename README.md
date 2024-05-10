@@ -44,7 +44,7 @@ with a consistent requirements file.
 
 ## Command Line Apps
 
-Here is a list of all of the command-line apps that get installed when you install this package:
+This is a list of all of the command-line apps that get installed when you install this package. For more specific usage instructions, run a command with the `-h` flag.
 
 | Command                         | Description                                                                                                                                                              |
 | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
