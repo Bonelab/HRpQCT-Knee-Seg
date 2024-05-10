@@ -6,7 +6,7 @@ This repo contains an installable package for doing automated HR-pQCT knee segme
 
 ## Installation
 
-1. Go to https://github.com/Bonelab/bonelab-pytorch-lightning and follow the instructions to install the bonelab and bonelab-pytorch-lightning packages
+1. Go to https://github.com/Bonelab/bonelab-pytorch-lightning and follow the instructions to install the `bonelab` and `bonelab-pytorch-lightning` packages
 2. Clone this repository and install it. You can do this by running the following commands:
 
 ```bash
@@ -26,13 +26,13 @@ install the default versions of all of the dependencies. There are two special c
 `requirements_arc_c11.1.txt` is for using the NVIDIA A100 GPU nodes on the ARC cluster at the University of Calgary, and also on `Groot`. You can install the package with this requirements file by running:
 
 ```bash
-pip install -e . -r requirements_arc_c11.1.txt
+pip install -r requirements_arc_c11.1.txt -e .
 ```
 
 `requirements_thegnu_c10.2.txt` is for using the NVIDIA Quadro P6000 GPUs on the `TheGNU` remote server in the lab. You can install the package with this requirements file by running:
 
 ```bash
-pip install -e . -r requirements_thegnu_c10.2.txt
+pip install -r requirements_thegnu_c10.2.txt -e .
 ```
 
 If you have other package version requirements, feel free to make your own
@@ -94,6 +94,8 @@ Your data directory must be organized in the following way:
 └── visualizations
 ```
 
+In a cross-sectional study design, we will process all images independently from each other. So the steps listed below are to be applied to each image.
+
 Steps:
 
 1. Put the AIMs in the `aims` directory.
@@ -110,8 +112,9 @@ Steps:
 12. Visualize the segmentations using the `hrkVisualize2DPanning` command, and put the outputs in the `visualizations` directory.
 13. Visually check the visualization outputs to make sure the ROI masks are OK - you may need to go back and recrop your AIMs, or you may need to do some corrections to the bone compartment segmentations and rerun parts of the workflow. You can also use these visualizations for doing motion scoring.
 14. Transfer all `*.AIM` files from `roi_masks` back to the VMS system, and do your analysis.
+15. Clean up after yourself by deleting everything that is not an `*.AIM` file.
 
-### Longotudinal Data
+### Longitudinal Data
 
 Your data directory must be organized in the following way:
 
@@ -126,9 +129,31 @@ Your data directory must be organized in the following way:
 └── visualizations
 ```
 
+In a longitudinal study design, we will process images as time series. The steps below are to be applied to each set of images that are the same subject, the same side, the same bone, etc. at each time point.
+
 Steps:
 
 1. Put the AIMs in the `aims` directory.
+2. Convert the AIMs to NIfTI format using the `hrkAIMs2NIIs` command, and put the outputs in the `niftis` directory.
+3. Perform inference on the images using the `hrkInferenceEnsemble` command, and put the outputs in the `model_masks` directory.
+4. Post-process the segmentations using the `hrkPostProcessSegmentation` command, and put the outputs in the `model_masks` directory.
+5. Convert the post-processed masks to AIMs using the `hrkMasks2AIMs` command, and put the outputs in the `roi_masks` directory.
+6. If the images are from a LEFT knee, then mirror the NIIs using the `blImageMirror` command, and put the outputs in the `niftis` directory.
+7. Register the (if LEFT, mirrored) images to the atlas using the `blRegistrationDemons` command, and put the output in the `atlas_registrations` directory.
+8. Transform the atlas masks to the images using the `blRegistrationApplyTransform` command and put the outputs in the `atlas_registrations` directory.
+9. If the images are from a LEFT knee, then mirror the transformed atlas masks using the `blImageMirror` command, and put the outputs in the `atlas_registrations` directory.
+10. Use the respective post-processed bone compartment masks to mask the images using the `hrkMaskImages` command, and put the outputs in the `niftis` directory.
+11. Perform a longitudinal registration with the masked images using the `blRegistrationLongitudinal` command, and put the outputs in the `registrations` directory.
+12. Delete the masked images.
+13. Transform all follow-up bone compartment segmentations and atlas-based compartmental segmentations to the baseline image using the `blRegistrationApplyTransform` command, and put the outputs in the `registrations` directory.
+14. Find the intersection of all atlas-based compartmental segmentations in the baseline frame using the `hrkIntersectMasks` command and put the output in the `registrations` directory.
+15. Generate the peri-articular ROI masks in the baseline reference frame using the intersected atlas masks and the bone compartment segmentations that have been transformed to the baseline reference frame, using the `hrkGenerateROIs` command, and put the output in the `roi_masks` directory.
+16. Transform the follow-up peri-articular ROI masks from the baseline frame to their respective follow-up frames using the `blRegistrationApplyTransform` command, and put the outputs in the `roi_masks` directory.
+17. Convert the peri-articular ROI masks to AIMs using the `hrkMasks2AIMs` command, and put the outputs in the `roi_masks` directory.
+18. Visualize the segmentations using the `hrkVisualize2DPanning` command, and put the outputs in the `visualizations` directory.
+19. Visually check the visualization outputs to make sure the ROI masks are OK - you may need to go back and recrop your AIMs, or you may need to do some corrections to the bone compartment segmentations and rerun parts of the workflow. You can also use these visualizations for doing motion scoring.
+20. Transfer all `*.AIM` files from `roi_masks` back to the VMS system, and do your analysis.
+21. Clean up after yourself by deleting everything that is not an `*.AIM` file.
 
 ### Miscellaneous
 
@@ -143,7 +168,7 @@ The steps don't need to be done in the exact order presented above. For example,
    will create all of the shell and slurm files required for either
    cross-sectional or longitudinal processing of HR-pQCT knee images
 3. Improve the documentation in this repo to properly explain how to use the
-   utilities and how everything works
+   utilities and how everything works (DONE)
 4. Add tests and github actions CI/CD
 5. Long term goal - perhaps add command line utilities that link up to the
    preprocessing and training scripts so that someone could retrain the models
