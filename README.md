@@ -23,7 +23,7 @@ NOTE 1: The `-e` flag is for "editable" mode. This means that if you make change
 NOTE 2: The above install command will use the `requirements.txt` file and will
 install the default versions of all of the dependencies. There are two special cases with special requirements file:
 
-`requirements_arc_c11.1.txt` is for using the NVIDIA A100 GPUs on the ARC cluster at the University of Calgary. You can install the package with this requirements file by running:
+`requirements_arc_c11.1.txt` is for using the NVIDIA A100 GPU nodes on the ARC cluster at the University of Calgary, and also on `Groot`. You can install the package with this requirements file by running:
 
 ```bash
 pip install -e . -r requirements_arc_c11.1.txt
@@ -129,6 +129,10 @@ Your data directory must be organized in the following way:
 Steps:
 
 1. Put the AIMs in the `aims` directory.
+
+### Miscellaneous
+
+The steps don't need to be done in the exact order presented above. For example, you can do the bone compartment segmentation steps at the same time as you register the image to the atlas and get the compartmental masks (and also do the longitudinal registrations in parallel). Also, only model inference will use a GPU, so every other step should be executed on a cluster node or machine where you are not blocking someone else's access to a GPU. Many of the CPU-intensive steps are slow, so it's not recommended to just run the whole workflow all the way through on a GPU node on ARC, or a GPU machine such as `TheGNU` or `Groot`.
 
 ---
 
