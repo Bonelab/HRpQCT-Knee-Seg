@@ -75,6 +75,41 @@ Here is a list of all of the command-line apps that get installed when you insta
 
 ---
 
+## Segmenting Knee Images
+
+Regardless of the study design, the first steps are to move your data from the `DATA` disk to the `PROJECTS` disk on the VMS system, and then transfer your data to ARC. This package does not provide scripts for automating any of that.
+
+### Cross-sectional Data
+
+Your data must be organized in the following way:
+
+```bash
+<STUDY NAME>
+├── aims
+├── atlas_registrations
+├── model_masks
+├── niftis
+├── roi_masks
+└── visualizations
+```
+
+### Longotudinal Data
+
+Your data must be organized in the following way:
+
+```bash
+<STUDY NAME>
+├── aims
+├── atlas_registrations
+├── model_masks
+├── niftis
+├── registrations
+├── roi_masks
+└── visualizations
+```
+
+---
+
 ## TODO:
 
 1. Add a command line utility for each step in the pipeline (DONE)
