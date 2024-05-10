@@ -2,6 +2,8 @@
 
 This repo contains an installable package for doing automated HR-pQCT knee segmentation. You can use it to do inference with an existing model, or to train a new model on your own data. The package is built on top of the [bonelab](https://github.com/Bonelab/Bonelab) and [bonelab-pytorch-lightning](https://github.com/Bonelab/bonelab-pytorch-lightning) packages.
 
+---
+
 ## Installation
 
 1. Go to https://github.com/Bonelab/bonelab-pytorch-lightning and follow the instructions to install the bonelab and bonelab-pytorch-lightning packages
@@ -37,6 +39,41 @@ If you have other package version requirements, feel free to make your own
 requirements file and install the package with that. However please note that
 it's import that `bonelab-pytorch-lightning` and this package be installed
 with a consistent requirements file.
+
+---
+
+## Command Line Apps
+
+Here is a list of all of the command-line apps that get installed when you install this package:
+
+| Command                         | Description                                                                                                                                                              |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| hrkAIMs2NIIs                    | Convert an AIM and optionally, its associated masks, to NIIs                                                                                                             |
+| hrkMask2AIM                     | Convert a mask to AIM, requires a base AIM that the mask will be lined up on.                                                                                            |
+| hrkMasks2AIMs                   | Convert multiple masks to AIMs, requires a base AIM that the masks will be lined up on.                                                                                  |
+| hrkParseLogs                    | Parse/collate the logs from a set of pytorch lightning model training runs.                                                                                              |
+| hrkCombineROIMasks              | Combine multiple ROI masks into a single compartmental mask.                                                                                                             |
+| hrkGenerateAffineAtlas          | Use a set of images and masks to construct an average atlas with affine registration.                                                                                    |
+| hrkInferenceEnsemble            | Perform inference on an image uby ensembling multiple segmentation models.                                                                                               |
+| hrkIntersectMasks               | Compute the intersection of two binary masks.                                                                                                                            |
+| hrkPostProcessSegmentation      | Use morphological filtering operations to post-process a predicted bone compartment segmentation - designed for knee HR-pQCT images specifically.                        |
+| hrkMaskImage                    | Given an image and a mask, will dilate the mask by some amount and then set the image voxels to zero outside of the dilated mask.                                        |
+| hrkPreProcess2DSlices           | Preprocess a directory of AIMs to generate 2D slice patch samples to minimize file IO and processing time when training a segmentation model.                            |
+| hrkPreProcess2dot5DSliceStacks  | Preprocess a directory of AIMs to generate 2.5D stacked slice patch samples to minimize file IO and processing time when training a segmentation model.                  |
+| hrkPreProcess3DPatches          | Preprocess a directory of AIMs to generate 3D patch samples to minimize file IO and processing time when training a segmentation model.                                  |
+| hrkPreProcess3DPatchesFromNPZ   | Preprocess a directory of AIMs that have been converted to NPZs to generate 3D patch samples to minimize file IO and processing time when training a segmentation model. |
+| hrkTrainSeGAN_CV                | Train a SeGAN segmentation model usinf cross-validation.                                                                                                                 |
+| hrkTrainSegResNetVAE_CV         | Train a SegResNetVAE using cross-validation.                                                                                                                             |
+| hrkTrainUNet_CV                 | Train a UNet (or variant) using cross-validation.                                                                                                                        |
+| hrkTrainSeGAN_Final             | Train a single SeGAN using 100% of the provided data as training data.                                                                                                   |
+| hrkTrainSegResNetVAE_Final      | Train a single SegResNetVAE using 100% of the provided data as training data.                                                                                            |
+| hrkTrainUNet_Final              | Train a single UNet (or variant) using 100% of the provided data as training data.                                                                                       |
+| hrkTrainSeGAN_TransferCV        | Train a SeGAN using cross-validation, starting from a SeGAN that has been trained on another dataset.                                                                    |
+| hrkTrainSegResNetVAE_TransferCV | Train a SegResNetVAE using cross-validation, starting from a SeGAN that has been trained on another dataset.                                                             |
+| hrkTrainUNet_TransferCV         | Train a UNet (or variant) using cross-validation, starting from a SeGAN that has been trained on another dataset.                                                        |
+| hrkVisualize2DPanning           | Reads in an image and masks and generates a 2D video or GIF that pans through the image, for qualitative data checking, motion scoring, etc.                             |
+
+---
 
 ## TODO:
 
