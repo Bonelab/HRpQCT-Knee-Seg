@@ -14,10 +14,14 @@ def write_slurm_script(
     partition: Optional[str] = None,
     num_gpus: Optional[int] = None,
     email: Optional[str] = None,
-    environment_variables: Optional[List[Tuple[str, str]]] = None
+    environment_variables: Optional[List[Tuple[str, str]]] = None,
 ) -> None:
     '''
     Write a slurm script.
+    This is a general script that should be able to handle the vast majority
+    of cases. It reserves the resources for the job, sets the environment
+    variables, and runs the commands.
+    If you provide an email, you will get email updates about the job status.
 
     Parameters
     ----------
@@ -56,6 +60,9 @@ def write_slurm_script(
 
     environment_variables : Optional[List[Tuple[str, str]]], optional
         List of environment variables to set, by default None.
+
+    dependencies : Optional[List[int]], optional
+        List of job ids that this job depends on, by default None.
     '''
     with open (fn, 'w') as f:
         f.write('#!/bin/bash\n')
