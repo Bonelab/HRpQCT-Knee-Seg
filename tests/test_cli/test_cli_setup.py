@@ -138,9 +138,9 @@ class TestCommandLineInterfeceSetup(unittest.TestCase):
         '''Can run `hrkGenerateROIs`'''
         self.runner('hrkGenerateROIs')
 
-    def test_hrkCrosssectional(self):
-        '''Can run `hrkCrosssectional`'''
-        self.runner('hrkCrosssectional')
+    def test_hrkCrossSectional(self):
+        '''Can run `hrkCrossSectional`'''
+        self.runner('hrkCrossSectional')
 
     def test_hrkLongitudinal(self):
         '''Can run `hrkLongitudinal`'''
