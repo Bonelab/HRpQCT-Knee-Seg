@@ -318,7 +318,7 @@ def create_slurm_files(
     shell_submit_script_lines.append(
         f"JID_ROIS=$(sbatch --dependency=afterok:${{JID_REG}} {generate_rois_slurm} | tr -dc \"0-9\")"
     )
-    rois_to_aims_slurm = os.path.join(slurm_dir, "8_rois_to_aims.sh")
+    rois_to_aims_slurm = os.path.join(slurm_dir, "8_rois_to_aims.slurm")
     rois_to_aims_commands = []
     for image in  [baseline] + followups:
         for roi_code in ROI_CODES[bone]:
