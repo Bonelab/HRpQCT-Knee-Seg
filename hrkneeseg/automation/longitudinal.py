@@ -227,7 +227,7 @@ def create_slurm_files(
             f"{os.path.join(working_dir, 'model_masks', f'{followup.lower()}_postprocessed_mask.nii.gz')} \\",
             f"{os.path.join(working_dir, 'registrations', baseline, f'{name.lower()}_{timecode}_transform.txt')} \\",
             f"{os.path.join(working_dir, 'registrations', baseline, f'{name.lower()}_{timecode}_bone_mask_baseline.nii.gz')} \\",
-            f"-fi {os.path.join(working_dir, 'model_masks', f'{followup.lower()}_postprocessed_mask.nii.gz')} \\",
+            f"-fi {os.path.join(working_dir, 'model_masks', f'{baseline.lower()}_postprocessed_mask.nii.gz')} \\",
             "-int NearestNeighbour -ow"
         ]
     generate_rois_commands.append(
