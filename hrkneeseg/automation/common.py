@@ -16,7 +16,7 @@ def create_segmentation_slurm_files(
     segmentation_models: List[dict],
     last_jid_var: str,
     email: Optional[str] = None,
-    time_series_idx: Optional[int] = None
+    timecode: Optional[str] = None
 ) -> List[str]:
     '''
     Create slurm scripts and shell batch submit script
@@ -60,20 +60,20 @@ def create_segmentation_slurm_files(
         Email address to send notifications to.
         Defaults to `None`.
 
-    time_series_idx : Optional[int], optional
-        Index of the time series image.
+    timecode : Optional[str]
+        The timecode to create a subdirectory for the slurm scripts.
 
     Returns
     -------
     List[str]
         Lines that can be added to the shell batch submit script.
     '''
-    if time_series_idx is not None:
+    if timecode is not None:
         try:
-            os.mkdir(os.path.join(slurm_dir, f"t{time_series_idx}"))
+            os.mkdir(os.path.join(slurm_dir, timecode))
         except FileExistsError:
             pass
-        slurm_dir = os.path.join(slurm_dir, f"t{time_series_idx}")
+        slurm_dir = os.path.join(slurm_dir, timecode)
     shell_submit_script_lines = []
     # Step 0: Convert to Nifti
     slurm_convert_to_nifti = os.path.join(slurm_dir, "0_convert_to_nifti.slurm")
@@ -225,19 +225,60 @@ def create_atlas_registration_slurm_files(
     dependent_jid_var: str,
     last_jid_var: str,
     email: Optional[str] = None,
-    time_series_idx: Optional[int] = None
+    timecode: Optional[str] = None,
 ) -> List[str]:
     '''
     Create slurm scripts and shell batch submit script
     for a single image, and return a line that can be
     added to the shell batch submit script.
+
+    Parameters
+    ----------
+    slurm_dir : str
+        The directory to save the slurm scripts to.
+
+    side : str
+        The side of the knee being processed.
+
+    bone : str
+        The bone being processed.
+
+    postsurgery : bool
+        Whether the image is from a post-surgery scan.
+
+    image : str
+        The image being processed.
+
+    working_dir : str
+        The directory containing the image and model masks.
+
+    atlas_dir : str
+        The directory containing the atlas images.
+
+    conda_dir : str
+        The directory containing the conda environment.
+
+    conda_env : str
+        The name of the conda environment.
+
+    dependent_jid_var : str
+        The name of the variable containing the job id of the previous job.
+
+    last_jid_var : str
+        The name of the variable to store the job id of the current job.
+
+    email : Optional[str]
+        The email address to send notifications to.
+
+    timecode : Optional[str]
+        The timecode to create a subdirectory for the slurm scripts.
     '''
-    if time_series_idx is not None:
+    if timecode is not None:
         try:
-            os.mkdir(os.path.join(slurm_dir, f"t{time_series_idx}"))
+            os.mkdir(os.path.join(slurm_dir, timecode))
         except FileExistsError:
             pass
-        slurm_dir = os.path.join(slurm_dir, f"t{time_series_idx}")
+        slurm_dir = os.path.join(slurm_dir, timecode)
     shell_submit_script_lines = []
     # Step 5: Atlas Registration
     slurm_atlas_registration = os.path.join(slurm_dir, "5_atlas_registration.slurm")
