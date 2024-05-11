@@ -340,6 +340,6 @@ def create_atlas_registration_slurm_files(
         email=email
     )
     shell_submit_script_lines.append(
-        f"{last_jid_var}=$(sbatch --dependency=afterok:{{{dependent_jid_var}}} {slurm_atlas_registration} | tr -dc \"0-9\")"
+        f"{last_jid_var}=$(sbatch --dependency=afterok:${{{dependent_jid_var}}} {slurm_atlas_registration} | tr -dc \"0-9\")"
     )
     return shell_submit_script_lines
