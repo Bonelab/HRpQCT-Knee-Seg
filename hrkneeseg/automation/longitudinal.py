@@ -344,7 +344,7 @@ def create_slurm_files(
         f"sbatch --dependency=afterok:${{JID_ROIS}} {rois_to_aims_slurm}"
     )
 
-    visualize_slurm = os.path.join(slurm_dir, "8_rois_to_gifs.sh")
+    visualize_slurm = os.path.join(slurm_dir, "9_rois_to_gifs.sh")
     visualize_commands = []
     for image in [baseline] + followups:
         visualize_commands += [
