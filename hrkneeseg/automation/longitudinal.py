@@ -323,7 +323,7 @@ def create_slurm_files(
     for image in  [baseline] + followups:
         for roi_code in ROI_CODES[bone]:
             rois_to_aims_commands += [
-                f"hrkMasks2AIMs \\",
+                f"hrkMask2AIM \\",
                 f"{os.path.join(working_dir, 'roi_masks', f'{image.lower()}_roi{roi_code}_mask.nii.gz')} \\",
                 f"{os.path.join(working_dir, 'aims', f'{image}.AIM')} \\",
                 f"{os.path.join(working_dir, 'roi_masks', f'{image}_ROI{roi_code}_MASK.AIM')} \\",
@@ -351,7 +351,7 @@ def create_slurm_files(
             f"hrkVisualize2DPanning \\",
             f"{os.path.join(working_dir, 'niftis', f'{image.lower()}.nii.gz')} \\",
             f"{os.path.join(working_dir, 'roi_masks', f'{image.lower()}_allrois_mask.nii.gz')} \\",
-            f"{os.path.join(working_dir, 'visualization', f'{image.lower()}_rois_reg')} \\",
+            f"{os.path.join(working_dir, 'visualizations', f'{image.lower()}_rois_reg')} \\",
             "-ib -400 1400 -pd 1 -ri -cens 10",
         ]
     write_slurm_script(
