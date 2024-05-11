@@ -248,32 +248,32 @@ def create_slurm_files(
     generate_rois_commands += [
         f"hrkIntersectMasks \\",
         f"-i \\"
-        f"{os.path.join(working_dir, 'atlas_registrations', f'{baseline}_atlas_mask_transformed.nii.gz')} \\"
+        f"{os.path.join(working_dir, 'atlas_registrations', f'{baseline.lower()}_atlas_mask_transformed.nii.gz')} \\"
     ]
     for followup, timecode in zip(followups, timecodes[1:]):
         generate_rois_commands += [
             f"{os.path.join(working_dir, 'registrations', baseline, f'{name.lower()}_{timecode}_atlas_mask_baseline.nii.gz')} \\"
         ]
     generate_rois_commands += [
-        f"-o {os.path.join(working_dir, 'registrations', baseline, f'{name}_atlas_masks_overlapped_baseline.nii.gz')} \\",
+        f"-o {os.path.join(working_dir, 'registrations', baseline, f'{name.lower()}_atlas_masks_overlapped_baseline.nii.gz')} \\",
         f"-c 1 2 -ow"
     ]
     generate_rois_commands += [
         f"echo \"Step 4: Generate the ROIs in the baseline reference frame with the overlapped atlas masks\"",
-        f"hrkGenerateROIs \\"
+        f"hrkGenerateROIs \\",
         f"{os.path.join(working_dir, 'model_masks', f'{baseline.lower()}_postprocessed_mask.nii.gz')} \\",
         f"{bone} \\",
-        f"{os.path.join(working_dir, 'registrations', baseline, f'{name}_atlas_masks_overlapped_baseline.nii.gz')} \\",
+        f"{os.path.join(working_dir, 'registrations', baseline, f'{name.lower()}_atlas_masks_overlapped_baseline.nii.gz')} \\",
         f"{os.path.join(working_dir, 'roi_masks')} \\",
         f"{baseline.lower()} \\",
         f"--axial-dilation-footprint 40 -ow"
     ]
     for followup, timecode in zip(followups, timecodes[1:]):
         generate_rois_commands += [
-            f"hrkGenerateROIs \\"
+            f"hrkGenerateROIs \\",
             f"{os.path.join(working_dir, 'registrations', baseline, f'{name.lower()}_{timecode}_bone_mask_baseline.nii.gz')} \\",
             f"{bone} \\",
-            f"{os.path.join(working_dir, 'registrations', baseline, f'{name.lower()}_{timecode}_atlas_mask_baseline.nii.gz')} \\",
+            f"{os.path.join(working_dir, 'registrations', baseline, f'{name.lower()}_atlas_masks_overlapped_baseline.nii.gz')} \\",
             f"{os.path.join(working_dir, 'roi_masks')} \\",
             f"{followup.lower()}_baseline \\",
             f"--axial-dilation-footprint 40 -ow"
