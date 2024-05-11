@@ -190,12 +190,12 @@ def create_segmentation_slurm_files(
             f"{os.path.join(working_dir, 'niftis', f'{image.lower()}.nii.gz')} \\",
             f"{os.path.join(working_dir, 'model_masks', f'{image.lower()}_ensemble_inference_mask.nii.gz')} \\",
             f"{os.path.join(working_dir, 'visualizations', f'{image.lower()}_inference')} \\",
-            f"-ib -400 1400 -pd 1 -ri -cens 10 \\",
+            f"-ib -400 1400 -pd 1 -ri -cens 10",
             f"hrkVisualize2DPanning \\",
             f"{os.path.join(working_dir, 'niftis', f'{image.lower()}.nii.gz')} \\",
             f"{os.path.join(working_dir, 'model_masks', f'{image.lower()}_postprocessed_mask.nii.gz')} \\",
             f"{os.path.join(working_dir, 'visualizations', f'{image.lower()}_postprocessed')} \\",
-            f"-ib -400 1400 -pd 1 -ri -cens 10 \\"
+            f"-ib -400 1400 -pd 1 -ri -cens 10"
         ],
         f"{image}_4_segmentation_visualizations",
         "1:00:00",

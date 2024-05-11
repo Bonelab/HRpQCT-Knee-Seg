@@ -168,7 +168,7 @@ def create_slurm_files(
     )
     longitudinal_registration_commands += [
         f"mkdir {os.path.join(working_dir, 'registrations', baseline)}",
-        f"hrkLongitudinalRegistration \\",
+        f"blRegistrationLongitudinal \\",
         f"{os.path.join(working_dir, 'registrations', baseline)} {name.lower()} \\",
         f"{os.path.join(working_dir, 'niftis', f'{baseline.lower()}_masked.nii.gz')} \\",
     ]
