@@ -298,20 +298,20 @@ def create_atlas_registration_slurm_files(
                 f"{os.path.join(working_dir, 'niftis', f'{image.lower()}_masked.nii.gz')} \\",
                 f"0 \\",
                 f"{os.path.join(working_dir, 'niftis', f'{image.lower()}_masked.nii.gz')} -ow",
-            ] if side == "Left" else [
+            ] if side.lower() == "left" else [
                 f"echo \"Step 2: not LEFT knee, don't need to mirror it\""
             ]
         ) + [
             f"echo \"Step 3: register the nifti to the atlas\"",
             f"blRegistrationDemons \\",
             f"{os.path.join(working_dir, 'niftis', f'{image.lower()}_masked.nii.gz')} \\",
-            f"{os.path.join(atlas_dir, bone, 'atlas.nii')} \\"
+            f"{os.path.join(atlas_dir, bone.lower(), 'atlas.nii')} \\"
             f"{os.path.join(working_dir, 'atlas_registrations', f'{image.lower()}_atlas_transform.nii.gz')} \\",
             f"-mida -dsf 8 -dss 0.5 -ci Geometry -dt diffeomorphic \\",
             f"-mi 200 -ds 2 -us 2 -sf 16 8 4 2 -ss 8 4 2 1 -pmh -ow",
             f"echo \"Step 4: transform the atlas mask to the image\"",
             f"blRegistrationApplyTransform \\",
-            f"{os.path.join(atlas_dir, bone, 'atlas_mask.nii.gz')} \\",
+            f"{os.path.join(atlas_dir, bone.lower(), 'atlas_mask.nii.gz')} \\",
             f"{os.path.join(working_dir, 'atlas_registrations', f'{image.lower()}_atlas_transform.nii.gz')} \\",
             f"{os.path.join(working_dir, 'atlas_registrations', f'{image.lower()}_atlas_mask_transformed.nii.gz')} \\",
             f"--fixed-image {os.path.join(working_dir, 'niftis', f'{image.lower()}_masked.nii.gz')} \\",
@@ -324,7 +324,7 @@ def create_atlas_registration_slurm_files(
                 f"0 \\",
                 f"{os.path.join(working_dir, 'atlas_registrations', f'{image.lower()}_atlas_mask_transformed.nii.gz')} \\",
                 f"-int NearestNeighbour -ow"
-            ] if side == "Left" else [
+            ] if side.lower() == "left" else [
                 f"echo \"Step 5: not LEFT knee, don't need to mirror the image and transformed mask back\""
             ]
         ) + [
