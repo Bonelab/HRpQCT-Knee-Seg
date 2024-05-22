@@ -4,6 +4,22 @@ This repo contains an installable package for doing automated HR-pQCT knee segme
 
 ---
 
+## Publication
+
+Pre-print: https://doi.org/10.1101/2024.05.20.24307643
+
+This repository contains code for automating peri-articular analysis of bone in knee HR-pQCT images. There are utilities for training, and doing inference with, segmentation models using deep learning (UNet variants specifically), for atlas-based registration, and for ROI generation. While the [other repo](https://github.com/Bonelab/hrpqct-knee-segmentation) contains all of the associated code for the publication, this repo contains only the code necessary to use the workflow, is installable, has command line hooks, and has some additional utilities for automating the generation of slurm and shell scripts to run the analysis. If you want to use the method yourself, this is the repo you want.
+
+This work is not yet peer-reviewed.
+
+## Atlases and trained models
+
+The atlases and trained models are available on zenodo.
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11244681.svg)](https://doi.org/10.5281/zenodo.11244681)
+
+---
+
 ## Installation
 
 1. Go to https://github.com/Bonelab/bonelab-pytorch-lightning and follow the instructions to install the `bonelab` and `bonelab-pytorch-lightning` packages
