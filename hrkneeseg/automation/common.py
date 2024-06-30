@@ -5,6 +5,11 @@ import os
 
 from hrkneeseg.automation.write_slurm_script import write_slurm_script
 
+ROI_CODES = {
+    "femur": [10, 11, 12, 13, 14, 15, 16, 17],
+    "tibia": [30, 31, 32, 33, 34, 35, 36, 37],
+}
+
 
 def create_segmentation_slurm_files(
     slurm_dir: str,

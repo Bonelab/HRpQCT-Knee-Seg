@@ -14,15 +14,9 @@ from bonelab.util.time_stamp import message
 from hrkneeseg.automation.parser import create_parser
 from hrkneeseg.automation.write_slurm_script import write_slurm_script
 from hrkneeseg.automation.common import (
-    create_segmentation_slurm_files,
+    ROI_CODES, create_segmentation_slurm_files,
     create_atlas_registration_slurm_files
 )
-
-
-ROI_CODES = {
-    "femur": [10, 11, 12, 13, 14, 15, 16, 17],
-    "tibia": [30, 31, 32, 33, 34, 35, 36, 37],
-}
 
 
 def create_shell_files() -> None:

@@ -64,7 +64,7 @@ def write_slurm_script(
     dependencies : Optional[List[int]], optional
         List of job ids that this job depends on, by default None.
     '''
-    with open (fn, 'w') as f:
+    with open(fn, 'w') as f:
         f.write('#!/bin/bash\n')
         f.write('####### Reserve computing resources #############\n')
         f.write(f'#SBATCH --nodes=1\n')
