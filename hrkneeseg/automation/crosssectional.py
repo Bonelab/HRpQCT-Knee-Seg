@@ -116,8 +116,8 @@ def create_slurm_files(
     if (bone == "tibia") or (bone == "femur"):
         shell_submit_script_lines += create_atlas_registration_slurm_files(
             slurm_dir,
-            bone,
             side,
+            bone,
             postsurgery,
             image,
             working_dir,
