@@ -137,7 +137,7 @@ def create_slurm_files(
         f"hrkGenerateROIs \\",
         f"{os.path.join(working_dir, 'model_masks', f'{image.lower()}_postprocessed_mask.nii.gz')} \\",
         f"{bone} \\",
-        f"{os.path.join(working_dir, 'registrations', f'{image.lower()}_atlas_mask_transformed.nii.gz')} \\",
+        f"{os.path.join(working_dir, 'atlas_registrations', f'{image.lower()}_atlas_mask_transformed.nii.gz')} \\",
         f"{os.path.join(working_dir, 'roi_masks')} \\",
         f"{image.lower()} \\",
         f"--axial-dilation-footprint 40 -ow"
